@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestMatrizInteger {
-	
-	
-	
+
+
+
 	@Test
 	public void testSumar() {
 		Integer i1 = new Integer(25);
@@ -62,7 +62,7 @@ public class TestMatrizInteger {
 	public void testSumaProductoMatricesConExcepcion() {
 		Integer[][] m3 = { { 1, 1, 1 }, { 2, 2, 2 }, { 0, 0, 0 } };
 		Integer[][] m4 = { { 4, 5, 6 }, { 1, 1, 1 } };
-		
+
 		try {
 			MatrizInteger matrizInteger = new MatrizInteger();
 
