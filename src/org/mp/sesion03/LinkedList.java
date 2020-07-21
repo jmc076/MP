@@ -6,8 +6,7 @@ import java.util.Iterator;
 public class LinkedList<E> extends AbstractList<E> {
 
 	private Node<E> head;
-	private Node<E> tail
-	;
+	private Node<E> tail;
 
 	//Propiedades
 

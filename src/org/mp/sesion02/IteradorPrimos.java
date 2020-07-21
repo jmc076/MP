@@ -1,6 +1,7 @@
 package org.mp.sesion02;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class IteradorPrimos implements Iterator<Integer> {
 
@@ -9,7 +10,7 @@ public class IteradorPrimos implements Iterator<Integer> {
 
 	public IteradorPrimos(int limite) {
 		this.limite = limite;
-		this.actual = 1;
+		this.actual = 2;
 	}
 
 	public Object getLimite() {
@@ -17,25 +18,25 @@ public class IteradorPrimos implements Iterator<Integer> {
 	}
 
 	public Object getActual() {
-		if (actual == 1) return actual + 1;
 		return actual;
 	}
 
 	@Override
 	public boolean hasNext() {
-		while(actual < limite){
-			actual++;
-			if(esPrimo (actual)) return true;
-		}
-		return false;
+		return (actual <= limite);
+		
 	}
 
 	@Override
 	public Integer next() {
-		if (hasNext() == false){
-			throw new UnsupportedOperationException("No se puede acceder a más números primos");
-			}
-			else return actual;
+		if (limite < actual) {
+			throw new NoSuchElementException("No se puede acceder a mÃ¡s nÃºmeros primos");
+		}
+		int temp = actual;
+		do {
+			actual++;
+		}while(!esPrimo(actual));
+		return temp;
 	}
 
 
@@ -51,19 +52,19 @@ public class IteradorPrimos implements Iterator<Integer> {
 
 	public String mostrarPrimos() {
 		int cont = 0;
-	     String cadena = "";
+	    String cadena = "";
 	        while (hasNext()) {
-	            cadena += "\t" + actual;
+	            cadena += "\t" + next();
 	            cont ++;
 	            if(cont % 10 == 0){
 	                cadena += "\n";
 	            }
 	        }
-	        return cadena;
+	    return cadena;
 	}
 	
 	public void remove() {
-		throw new UnsupportedOperationException("Método no soportado");
+		throw new UnsupportedOperationException("MÃ©todo no soportado");
 	}
 
 
