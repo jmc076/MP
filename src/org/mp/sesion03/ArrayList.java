@@ -1,6 +1,10 @@
 package org.mp.sesion03;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+//import org.mp.sesion03.ArrayList.ArrayListIterator;
+
 import java.util.Arrays;
 
 public class ArrayList<E> extends AbstractList<E> {
@@ -21,6 +25,9 @@ public class ArrayList<E> extends AbstractList<E> {
   @Override /** Añade un nuevo elemento en la posición index */
   public void add(int index, E e) {
     ensureCapacity();
+    if (index<0 || index> size)
+    	throw new IndexOutOfBoundsException
+        ("Indice: " + index + ", Tama�o: " + size);
 
     // Mueve los elementos a la derecha desde la posición especificada por index
     for (int i = size - 1; i >= index; i--)
@@ -36,8 +43,8 @@ public class ArrayList<E> extends AbstractList<E> {
   /** Crea un nuevo array con el doble tamaño más 1 */
   private void ensureCapacity() {
 	  if (size == data.length) {
-		  E[] auxiliar = (E[])new Object[CAPACIDAD_INICIAL *2 +1];
-		  System.arraycopy(data, 0, auxiliar, 0, CAPACIDAD_INICIAL);
+		  E[] auxiliar = (E[])new Object[size *2 +1];
+		  System.arraycopy(data, 0, auxiliar, 0, size);
 		  data = auxiliar;
 	  }
   }
@@ -50,10 +57,10 @@ public class ArrayList<E> extends AbstractList<E> {
 
   @Override /** Devuelve true si la lista contiene el elemento */
   public boolean contains(E e) {
-	  for (int i = 0; i < data.length; i++) {
+	  for (int i = 0; i < size; i++) {
 		if(data[i].equals(e)) return true;
 	}
-       return false;
+      return false;
   }
 
   @Override /**Devuelve el elemento en la posición index especificada  */
@@ -65,26 +72,28 @@ public class ArrayList<E> extends AbstractList<E> {
   private void checkIndex(int index) {
     if (index < 0 || index >= size)
       throw new IndexOutOfBoundsException
-        ("Indice: " + index + ", Tamaño: " + size);
+        ("Indice: " + index + ", Tama�o: " + size);
   }
 
   @Override /** Devuelve el �ndice de la primera
    *  ocurrencia del elemento en la lista.
    *  Devuelve -1 si no está. */
   public int indexOf(E e) {
-	  for (int i = 0; i < data.length; i++) {
-		  if (data[i].equals(e)) return i;
+	  for (int i = 0; i < size; i++) {
+		  if (data[i].equals(e))
+			  return i;
 	}
-       return -1;
+      return -1;
   }
 
   @Override /** Devuelve el índice de la última ocurrencia del elemento
    *  en la lista. Devuelve -1 si no está. */
   public int lastIndexOf(E e) {
-	  for (int i = data.length -1; i >= 0; i--) {
-		  if (data[i].equals(e)) return i;
+	  for (int i = size -1; i > 0 ; i--) {
+		  if (data[i].equals(e))
+			  return i;
 	}
-       return -1;
+      return -1;
   }
 
   @Override /**Elimina el elemento en la posición especificada
@@ -93,7 +102,7 @@ public class ArrayList<E> extends AbstractList<E> {
   public E remove(int index) {
 	 E elemento = data [index];
 	 for(int i = index; i < data.length; i++) {
-		if(i + 1 == data.length) 
+		if(i + 1 == data.length)
 			data[i] = null;
 		else
 			data[i] = data [i+1];
@@ -124,34 +133,41 @@ public class ArrayList<E> extends AbstractList<E> {
 
   /** Ajusta la capacidad del array al tamaño de la lista */
   public void trimToSize() {
-	  if (size < data.length) {
-          data = (size == 0)? EMPTY_ELEMENTDATA: Arrays.copyOf(data, size);
-      }
+	  if(size != data.length){
+		  E[] dataAuxiliar = (E[]) new Object[size];
+		  System.arraycopy(data,0,dataAuxiliar,0,size);
+		  data= dataAuxiliar;
+	  }
   }
 
   @Override /** Sobre-escribe el método iterator() definido en Iterable */
   public Iterator<E> iterator() {
-    return null;
-    // Devuelve una instancia de ArrayListIterator
+	// Devuelve una instancia de ArrayListIterator
+	  return new ArrayListIterator();
   }
 
 	private class ArrayListIterator implements Iterator<E> {
+		private int current = 0;
+
 		@Override
 		public boolean hasNext() {
-			return true;
+			return (current < size);
 		}
 
 		@Override
 		public E next() {
-			return null;
+			if (current == size)
+				throw new NoSuchElementException("No hay m�s elementos en la lista");
+			E e = data[current];
+			current++;
+			return e;
+
 		}
 
 		@Override
 		public void remove() {
-
+			ArrayList.this.remove(current);
 		}
 
 	}
-
-
 }
