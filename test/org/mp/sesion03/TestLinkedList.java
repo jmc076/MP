@@ -38,6 +38,7 @@ public class TestLinkedList {
 		String resultado1 = "[]";
 		String resultado2 = "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]";
 		assertEquals(resultado1, lista1.toString());
+		System.out.println(lista2.toString());
 		assertEquals(resultado2, lista2.toString());
 	}
 

@@ -100,6 +100,9 @@ public class ArrayList<E> extends AbstractList<E> {
    *  en la lista. Desplaza la subsecuencia de elementos a la izquierda.
    *  Devuelve el elemento eliminado. */
   public E remove(int index) {
+	 if (size == 0 || index < 0 || index > size)
+	    throw new IndexOutOfBoundsException
+	    ("Indice: " + index + ", Tamaño: " + size);
 	 E elemento = data [index];
 	 for(int i = index; i < data.length; i++) {
 		if(i + 1 == data.length)
@@ -107,6 +110,7 @@ public class ArrayList<E> extends AbstractList<E> {
 		else
 			data[i] = data [i+1];
 	}
+	 size--;
 	 return elemento;
   }
 
@@ -131,7 +135,7 @@ public class ArrayList<E> extends AbstractList<E> {
     return resultado.toString() + "]";
   }
 
-  /** Ajusta la capacidad del array al tamaÃ±o de la lista */
+  /** Ajusta la capacidad del array al tamaño de la lista */
   public void trimToSize() {
 	  if(size != data.length){
 		  E[] dataAuxiliar = (E[]) new Object[size];
@@ -156,7 +160,7 @@ public class ArrayList<E> extends AbstractList<E> {
 
 		@Override
 		public E next() {
-			if (current == size)
+			if (current == size || (!hasNext()))
 				throw new NoSuchElementException("No hay más elementos en la lista");
 			E e = data[current];
 			current++;
@@ -166,7 +170,10 @@ public class ArrayList<E> extends AbstractList<E> {
 
 		@Override
 		public void remove() {
+			if (current >= size || current < 0)
+				throw new IndexOutOfBoundsException("Indice: " + current + ", Tamaño: " + size);
 			ArrayList.this.remove(current);
+			size--;
 		}
 
 	}

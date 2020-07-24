@@ -4,24 +4,35 @@ import java.util.Iterator;
 
 
 public class LinkedList<E> extends AbstractList<E> {
+	
+	
 
 	private Node<E> head;
 	private Node<E> tail;
-
+ 
 	//Propiedades
 
 	/** Crea una lista enlazada por defecto */
 	public LinkedList() {
+	 	head = new Node<E>(null);
+	 	tail = head;
 	}
 
 	/** Crea una lista enlazada a partir de un array de objetos */
 	public LinkedList(E[] objects) {
-
+		for (int i = 0; i < objects.length; i++) {
+			if(i == 0) {
+				addFirst(objects[i]);
+			}else {
+				addLast(objects[i]);
+			}
+		}
+		
 	}
 
 	/** Devuelve el primer elemento de la lista */
 	public E getFirst() {
-		return null;
+		return head.element;
 	}
 	/** Devuelve el último elemento de la lista */
 	public E getLast() {
@@ -146,8 +157,13 @@ public class LinkedList<E> extends AbstractList<E> {
 
 	@Override /** Sobre-escribe toString() */
 	public String toString() {
-
-		return null;
+		//"[]"
+		String resultado = "[";
+		Node<E> current = head; 
+		while(current.next != null) {
+		      resultado += current.element + ", ";
+		    }
+		    return resultado + "]";
 	}
 
 	/** Elimina todos los elementos de la lista */
@@ -227,8 +243,12 @@ public class LinkedList<E> extends AbstractList<E> {
 	private static class Node<E> {
 		// Propiedades
 
-		public Node(E element) {
+		public E element;
+		public Node<E> next;
 
+		public Node(E element) {
+			this.element = element;
+			next = null;
 		}
 	}
 }
