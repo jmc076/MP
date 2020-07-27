@@ -1,42 +1,35 @@
 ﻿package org.mp.sesion03;
 
 import java.util.Iterator;
-
+import java.util.NoSuchElementException;
 
 public class LinkedList<E> extends AbstractList<E> {
-	
-	
 
 	private Node<E> head;
 	private Node<E> tail;
- 
+
 	//Propiedades
 
 	/** Crea una lista enlazada por defecto */
 	public LinkedList() {
-	 	head = new Node<E>(null);
-	 	tail = head;
+	 	head = null;
+	 	tail = null;
 	}
 
 	/** Crea una lista enlazada a partir de un array de objetos */
 	public LinkedList(E[] objects) {
-		for (int i = 0; i < objects.length; i++) {
-			if(i == 0) {
-				addFirst(objects[i]);
-			}else {
-				addLast(objects[i]);
-			}
-		}
-		
+		super(objects);
 	}
 
 	/** Devuelve el primer elemento de la lista */
 	public E getFirst() {
+		if (size == 0) return null;
 		return head.element;
 	}
 	/** Devuelve el último elemento de la lista */
 	public E getLast() {
-		return null;
+		if (tail == null) return null;
+		return tail.element;
 	}
 
 	/** Añade un elemento a la cabeza de la lista */
@@ -69,7 +62,7 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * head es 0
 	 */
 	public void add(int index, E e) {
-		if (index == 0) { // Inserta al principio
+		if (index == 0 || index < 0) { // Inserta al principio
 			addFirst(e);
 		} else if (index >= size) { // Inserta al final
 			addLast(e);
@@ -157,24 +150,33 @@ public class LinkedList<E> extends AbstractList<E> {
 
 	@Override /** Sobre-escribe toString() */
 	public String toString() {
-		//"[]"
 		String resultado = "[";
-		Node<E> current = head; 
-		while(current.next != null) {
-		      resultado += current.element + ", ";
+		//if (size == 0) resultado += "]";
+		Node<E> current = head;
+		for (int i=0; i<size; i++){
+		      resultado += current.element;
+		      current = current.next;
+		      if (i < size - 1) resultado += (", ");
 		    }
 		    return resultado + "]";
 	}
 
 	/** Elimina todos los elementos de la lista */
 	public void clear() {
+		head = null;
+		tail = null;
+		size = 0;
 
 	}
 
 	/** Devuelve true si la lista contiene el elemento e */
 	public boolean contains(E e) {
-
-		return true;
+		Iterator<E> Iterator = iterator();
+		while (Iterator.hasNext()){
+			E auxiliar = Iterator.next();
+			if (auxiliar.equals(e)) return true;
+		}
+		return false;
 	}
 
 	/**Devuelve el elemento en la posición index especificada  */
@@ -188,8 +190,14 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * Devuelve -1 si no está
 	 */
 	public int indexOf(E e) {
-
-		return 0;
+		Iterator<E> Iterator=iterator();
+		int contador=0;
+		while(Iterator.hasNext()){
+			E auxiliar = Iterator.next();
+			if (auxiliar.equals(e)) return contador;
+			contador++;
+		}
+		return -1;
 	}
 
 	/**
@@ -197,8 +205,16 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * en la lista. Devuelve -1 si no está.
 	 */
 	public int lastIndexOf(E e) {
-
-		return 0;
+		Iterator<E> Iterator = iterator();
+		int contador = 0;
+		int posición = -1;
+		while(Iterator.hasNext()){
+			E auxiliar = Iterator.next();
+			if (auxiliar.equals(e))
+				posición = contador;
+			contador++;
+		}
+		return posición;
 	}
 
 	/**
@@ -206,33 +222,45 @@ public class LinkedList<E> extends AbstractList<E> {
 	 * en la lista por el elemento especificado.
 	 */
 	public E set(int index, E e) {
+		if (index < 0 || index >= size)
+			return null;
+		Node<E> actual = head;
+		for (int i = 0; i < index; i++) actual=actual.next;
+		E temp = actual.element;
+		actual.element = e;
+		return temp;
 
-		return null;
 	}
 
 	@Override
 	/** Sobre-escribe el método iterator() definido en Iterable */
 	public Iterator<E> iterator() {
-		return null;
+		return new LinkedListIterator();
 		// Devuelve una instancia de LinkedListIterator
 	}
 
 	/** Esta clase implementa la interface Iterator*/
 	private class LinkedListIterator implements Iterator<E> {
 
+		private Node<E> current = head;
+
 		@Override
 		public boolean hasNext() {
-			return true;
+			return current != null;
 		}
 
 		@Override
 		public E next() {
-			return null;
+			if (current == null)
+				throw new NoSuchElementException("No hay más elementos en la lista");
+			E temp = current.element;
+			current = current.next;
+			return temp;
 		}
 
 		@Override
 		public void remove() {
-
+			if (size != 0) LinkedList.this.remove(current.element);
 		}
 	}
 

@@ -268,12 +268,12 @@ public class TestLinkedList {
 		Iterator<Integer> iteradorEnteros = lista2.iterator();
 		String resultado1 = "";
 		String resultado2 = "";
-		
+
 		try {
 			iteradorString.next();
 			fail("Debería haber lanzado una excepción");
 		} catch (NoSuchElementException e) {
-			assertEquals(e.getMessage(), "No hay más elementos en la lista");
+			assertEquals(e.getMessage(), "No hay m�s elementos en la lista");
 
 		}
 
