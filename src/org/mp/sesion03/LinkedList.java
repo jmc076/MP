@@ -3,10 +3,10 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedList<E> extends AbstractList<E> {
+public class LinkedList<E> extends AbstractList<E>{
 
-	private Node<E> head;
-	private Node<E> tail;
+	protected Node<E> head;
+	protected Node<E> tail;
 
 	//Propiedades
 
@@ -268,7 +268,7 @@ public class LinkedList<E> extends AbstractList<E> {
 	// Esta clase no necesita acceder a ningún miembro de instancia de LinkedList,
 	// por lo que se define estática.
 
-	private static class Node<E> {
+	protected static class Node<E> {
 		// Propiedades
 
 		public E element;

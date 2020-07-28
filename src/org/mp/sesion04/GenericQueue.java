@@ -2,7 +2,7 @@ package org.mp.sesion04;
 
 import org.mp.sesion03.LinkedList;
 
-public class GenericQueue<E> {
+public class GenericQueue<E>{
   private LinkedList<E> lista
     = new LinkedList<E>();
 
