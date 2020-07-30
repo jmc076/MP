@@ -109,7 +109,7 @@ public class TestGenericJosephus {
 		n = 9;
 		josephus = new GenericJosephus<Integer>(k, n, numerosJosephus);
 
-		stringSalidaOrdenEliminacion = "Orden de eliminación: " + "\n" + "Debe morir 3" + "\n" + "Debe morir 6" + "\n"
+		stringSalidaOrdenEliminacion = "Orden de eliminaci�n: " + "\n" + "Debe morir 3" + "\n" + "Debe morir 6" + "\n"
 				+ "Debe morir 9" + "\n" + "Debe morir 4" + "\n" + "Debe morir 8" + "\n" + "Debe morir 5" + "\n"
 				+ "Debe morir 2" + "\n" + "Debe morir 7" + "\n"+ "Debe morir 1" + "\n";
 
@@ -140,7 +140,7 @@ public class TestGenericJosephus {
 		n = 7;
 		josephus1 = new GenericJosephus<String>(k, n, personas1);
 
-		stringSalidaOrdenEliminacion = "Orden de eliminación: " + "\n" + "Debe morir Juan" + "\n" + "Debe morir Felipe"
+		stringSalidaOrdenEliminacion = "Orden de eliminaci�n: " + "\n" + "Debe morir Juan" + "\n" + "Debe morir Felipe"
 				+ "\n" + "Debe morir Tomás" + "\n" + "Debe morir Pablo" + "\n" + "Debe morir Simón" + "\n"
 				+ "Debe morir Andrés" + "\n" + "Debe morir Josephus" + "\n";
 		assertEquals(stringSalidaOrdenEliminacion, josephus1.ordenEliminar(josephus1.getCola()));
