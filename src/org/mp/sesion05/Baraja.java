@@ -17,12 +17,20 @@ public class Baraja {
 	}
 
 	public void insercion(Carta[] cartas2) {
-		for (int i = 0; i < cartas2.length - 1; i++)
+		/*for (int i = 0; i < cartas2.length - 1; i++)
 			this.cartas[i] = cartas2[i];
-		barajar();
+		barajar();*/
+		for(int i= 1; i < cartas.length; i++) {
+			Carta aux = cartas[i];
+			int j;
+			for(j = i-1; j >= 0 && aux.compareTo(cartas[j]) < 1; j--) {
+				cartas[j+ 1] = cartas[j];
+				}
+			cartas[j+ 1] = aux;
+		}
 	}
 
-	private void barajar() {
+	/*private void barajar() {
 		// Bubble sort
 		for (int i = 0; i < this.cartas.length - 1; i++) {
 			for (int j = 0; j < this.cartas.length - 1; j++) {
@@ -33,6 +41,5 @@ public class Baraja {
 				}
 			}
 		}
-	}
-
+	}*/
 }
