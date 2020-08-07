@@ -1,29 +1,39 @@
 package org.mp.sesion06;
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 public class Estadistica {
+	
+	private ConjuntoDatos conjuntoDatos;
+	private DescriptiveStatistics ds;
 
-	public Estadistica(ConjuntoDatos cd) {
-		// TODO Auto-generated constructor stub
+	public Estadistica(ConjuntoDatos conjuntoDatos) {
+		super();
+		this.conjuntoDatos = conjuntoDatos;
 	}
 
-	public String max(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public double max(String columna) throws Exception {
+		double[] array = conjuntoDatos.getColumna(columna);
+		ds = new DescriptiveStatistics(array);
+		return ds.getMax();
 	}
 
-	public String min(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public double min(String columna) throws Exception{
+		double[] array = conjuntoDatos.getColumna(columna);
+		ds= new DescriptiveStatistics(array);
+		return ds.getMin();
 	}
 
-	public String suma(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public double suma(String columna) throws Exception{
+		double[] array = conjuntoDatos.getColumna(columna);
+		ds= new DescriptiveStatistics(array);
+		return ds.getSum();
 	}
 
-	public String media(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public double media(String columna) throws Exception{
+		double[] array = conjuntoDatos.getColumna(columna);
+		ds= new DescriptiveStatistics(array);
+		return ds.getMean();
 	}
 
 }
